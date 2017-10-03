@@ -19,16 +19,16 @@
       name: filebeat
       state: latest
 
-#  - name: filebeat setting
-#    template:
-#      src: filebeat.yml.j2
-#      dest: /etc/filebeat/filebeat.yml
-#      owner: root
-#      group: root
-#      mode: 0644
-#      backup: yes
-#    register: is_filebeat_setting
-#    notify: filebeat restart
+  - name: filebeat setting
+    template:
+      src: filebeat.yml.j2
+      dest: /etc/filebeat/filebeat.yml
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_filebeat_setting
+    notify: filebeat restart
 
   always:
   - name: filebeat common backup settings
@@ -39,9 +39,9 @@
     loop_control:
       loop_var: backup_item
 
-#- name: enable filebeat service
-#  service:
-#    name: filebeat
-#    state: started
-#    enabled: yes
-#    daemon_reload: yes
+- name: enable filebeat service
+  service:
+    name: filebeat
+    state: started
+    enabled: yes
+    daemon_reload: yes
