@@ -1,0 +1,47 @@
+---
+# file: roles/filebeat/tasks/main.yml
+- name: register subscription and yum proxy setting
+  include: yum_setup.yml
+
+- block:
+  - name: enable elastic repo
+    copy:
+      src: elastic.repo
+      dest: /etc/yum.repos.d/elastic.repo
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_elastic_repo_setting
+
+  - name: filebeat install
+    package:
+      name: filebeat
+      state: latest
+
+#  - name: filebeat setting
+#    template:
+#      src: filebeat.yml.j2
+#      dest: /etc/filebeat/filebeat.yml
+#      owner: root
+#      group: root
+#      mode: 0644
+#      backup: yes
+#    register: is_filebeat_setting
+#    notify: filebeat restart
+
+  always:
+  - name: filebeat common backup settings
+    include: backup.yml
+    with_flattened:
+      - "{{ is_elastic_repo_setting|default() }}"
+      - "{{ is_filebeat_setting|default() }}"
+    loop_control:
+      loop_var: backup_item
+
+#- name: enable filebeat service
+#  service:
+#    name: filebeat
+#    state: started
+#    enabled: yes
+#    daemon_reload: yes
