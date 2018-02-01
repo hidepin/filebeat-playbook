@@ -81,7 +81,7 @@ filebeat.prospectors:
 output.elasticsearch:
   # Array of hosts to connect to.
 ###  hosts: ["localhost:9200"]
-  hosts: [ {{ elasticsearch_node|join(', ') }} ]
+  hosts: [ "192.168.0.50:9200" ]
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
