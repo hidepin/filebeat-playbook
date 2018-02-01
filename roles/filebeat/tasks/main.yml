@@ -18,6 +18,10 @@
     package:
       name: filebeat
       state: latest
+    register: result
+    until: result | success
+    retries: 3
+    delay: 5
 
   - name: filebeat setting
     template:
