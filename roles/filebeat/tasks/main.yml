@@ -34,12 +34,24 @@
     register: is_filebeat_setting
     notify: filebeat restart
 
+  - name: filebeat auditd setting
+    copy:
+      src: auditd.yml
+      dest: /etc/filebeat/modules.d/auditd.yml
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_filebeat_auditd_setting
+    notify: filebeat restart
+
   always:
   - name: filebeat common backup settings
     include_tasks: backup.yml
     with_flattened:
       - "{{ is_elastic_repo_setting|default() }}"
       - "{{ is_filebeat_setting|default() }}"
+      - "{{ is_filebeat_auditd_setting|default() }}"
     loop_control:
       loop_var: backup_item
 
