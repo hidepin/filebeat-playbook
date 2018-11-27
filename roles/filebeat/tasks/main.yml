@@ -45,7 +45,7 @@
 
 - name: enable filebeat service
   service:
-    name: filebeat
+    name: filebeat.service
     state: started
     enabled: yes
     daemon_reload: yes
