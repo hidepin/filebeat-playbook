@@ -45,6 +45,17 @@
     register: is_filebeat_auditd_setting
     notify: filebeat restart
 
+  - name: filebeat kibana setting
+    copy:
+      src: kibana.yml
+      dest: /etc/filebeat/modules.d/kibana.yml
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_filebeat_kibana_setting
+    notify: filebeat restart
+
   always:
   - name: filebeat common backup settings
     include_tasks: backup.yml
@@ -52,6 +63,7 @@
       - "{{ is_elastic_repo_setting|default() }}"
       - "{{ is_filebeat_setting|default() }}"
       - "{{ is_filebeat_auditd_setting|default() }}"
+      - "{{ is_filebeat_kibana_setting|default() }}"
     loop_control:
       loop_var: backup_item
 
