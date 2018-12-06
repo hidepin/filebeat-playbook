@@ -1,0 +1,31 @@
+---
+# file: roles/filebeat/tasks/module.yml
+- block:
+  - name: create module directory
+    file:
+      path: "{{ item.path }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+      mode: "{{ item.mode }}"
+      state: directory
+    with_items: "{{ directory }}"
+
+  - name: copy module file
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.path }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+      mode: "{{ item.mode }}"
+      backup: yes
+    with_items: "{{ file }}"
+    register: is_module_setting
+    notify: filebeat restart
+
+  always:
+  - name: module backup settings
+    include_tasks: backup.yml
+    with_flattened:
+      - "{{ is_module_setting.results|default() }}"
+    loop_control:
+      loop_var: backup_item

@@ -56,6 +56,48 @@
     register: is_filebeat_kibana_setting
     notify: filebeat restart
 
+  - name: filebeat custom postgresql modules setting
+    include_tasks: module.yml
+    vars:
+      - directory:
+        - path: '/usr/share/filebeat/module/custom_postgresql'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_postgresql/log'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_postgresql/log/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_postgresql/log/ingest'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+      - file:
+        - src: 'custom_postgresql/module.yml'
+          path: '/usr/share/filebeat/module/custom_postgresql'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_postgresql/log/manifest.yml'
+          path: '/usr/share/filebeat/module/custom_postgresql/log'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_postgresql/log/config/log.yml'
+          path: '/usr/share/filebeat/module/custom_postgresql/log/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_postgresql/log/ingest/pipeline.json'
+          path: '/usr/share/filebeat/module/custom_postgresql/log/ingest/'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+
   always:
   - name: filebeat common backup settings
     include_tasks: backup.yml
