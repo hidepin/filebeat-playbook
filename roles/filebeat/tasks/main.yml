@@ -59,6 +59,12 @@
   - name: filebeat custom postgresql modules setting
     include_tasks: module.yml
     vars:
+      - module:
+        - src: 'custom_postgresql.yml'
+          path: '/etc/filebeat/modules.d'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
       - directory:
         - path: '/usr/share/filebeat/module/custom_postgresql'
           owner: 'root'
