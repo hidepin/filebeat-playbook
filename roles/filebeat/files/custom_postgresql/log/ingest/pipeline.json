@@ -18,6 +18,15 @@
       }
     },
     {
+      "grok": {
+        "field": "postgresql.log.message",
+        "ignore_missing": true,
+          "patterns": [
+              "^duration: %{NUMBER:postgresql.log.duration} ms  (statement|execute [^:]+): %{GREEDYDATA:postgresql.log.query}"
+          ]
+      }
+    },
+    {
       "date": {
         "field": "postgresql.log.timestamp",
         "target_field": "@timestamp",
