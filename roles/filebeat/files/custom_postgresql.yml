@@ -1,4 +1,4 @@
-- module: postgresql
+- module: custom_postgresql
   # All logs
   log:
     enabled: true
