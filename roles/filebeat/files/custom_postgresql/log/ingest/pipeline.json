@@ -23,8 +23,13 @@
         "ignore_missing": true,
         "ignore_failure": true,
         "patterns": [
-            "^duration: %{NUMBER:postgresql.log.duration} ms  (statement|execute [^:]+): %{GREEDYDATA:postgresql.log.query}"
-        ]
+            "^duration: %{NUMBER:postgresql.log.duration} ms  (statement|execute [^:]+): %{GREEDYDATA:postgresql.log.query}",
+            "^automatic analyze of table \"\"%{NOT_QUOTE:postgresql.log.automatic_analyze_table}\"\" .* elapsed %{NUMBER:postgresql.log.automatic_analyze_elapsed} sec"
+        ],
+        "pattern_definitions": {
+            "GREEDYDATA": "(.|\n|\t)*",
+            "NOT_QUOTE": "[^\"]+"
+        }
       }
     },
     {

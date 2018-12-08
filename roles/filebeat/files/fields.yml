@@ -2219,6 +2219,14 @@
               type: keyword
               description: >
                 application name
+            - name: automatic_analyze_table
+              type: keyword
+              description: >
+                automatic analyze of table
+            - name: automatic_analyze_elapsed
+              type: float
+              description: >
+                Elapsed of a automatic analyze.
 - key: redis
   title: "Redis"
   description: >
