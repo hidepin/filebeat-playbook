@@ -178,7 +178,7 @@
           owner: 'root'
           group: 'root'
           mode: '0644'
-        - src: 'custom_apache2/access/ingest/default.json'
+        - src: 'custom_apache2/access/ingest/pipeline.json'
           path: '/usr/share/filebeat/module/custom_apache2/access/ingest/'
           owner: 'root'
           group: 'root'
