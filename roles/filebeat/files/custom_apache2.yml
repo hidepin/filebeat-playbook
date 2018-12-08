@@ -1,4 +1,4 @@
-- module: apache2
+- module: custom_apache2
   # Access logs
   access:
     enabled: true
@@ -6,6 +6,9 @@
     # Set custom paths for the log files. If left empty,
     # Filebeat will choose the paths depending on your OS.
     #var.paths:
+    var.paths:
+      - /var/log/httpd/**/access_log
+      - /var/log/httpd/**/ssl_access_log
 
   # Error logs
   error:
@@ -14,3 +17,6 @@
     # Set custom paths for the log files. If left empty,
     # Filebeat will choose the paths depending on your OS.
     #var.paths:
+    var.paths:
+      - /var/log/httpd/**/error_log
+      - /var/log/httpd/**/ssl_error_log

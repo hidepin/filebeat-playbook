@@ -56,13 +56,6 @@
     register: is_filebeat_auditd_setting
     notify: filebeat restart
 
-  - name: filebeat delete auditd disable setting
-    file:
-      path: /etc/filebeat/modules.d/auditd.yml.disabled
-      state: absent
-      backup: yes
-    notify: filebeat restart
-
   - name: filebeat kibana setting
     copy:
       src: kibana.yml
@@ -74,12 +67,14 @@
     register: is_filebeat_kibana_setting
     notify: filebeat restart
 
-  - name: filebeat delete kibana disable setting
+  - name: filebeat delete disable setting
     file:
-      path: /etc/filebeat/modules.d/kibana.yml.disabled
+      path: "{{ item }}"
       state: absent
-      backup: yes
     notify: filebeat restart
+    with_items:
+      - /etc/filebeat/modules.d/auditd.yml.disabled
+      - /etc/filebeat/modules.d/kibana.yml.disabled
 
   - name: filebeat custom postgresql modules setting
     include_tasks: module.yml
@@ -125,6 +120,81 @@
           mode: '0644'
         - src: 'custom_postgresql/log/ingest/pipeline.json'
           path: '/usr/share/filebeat/module/custom_postgresql/log/ingest/'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+
+  - name: filebeat custom apache2 modules setting
+    include_tasks: module.yml
+    vars:
+      - module:
+        - src: 'custom_apache2.yml'
+          path: '/etc/filebeat/modules.d'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+      - directory:
+        - path: '/usr/share/filebeat/module/custom_apache2'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_apache2/access'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_apache2/access/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_apache2/access/ingest'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_apache2/error'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_apache2/error/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_apache2/error/ingest'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+      - file:
+        - src: 'custom_apache2/module.yml'
+          path: '/usr/share/filebeat/module/custom_apache2'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_apache2/access/manifest.yml'
+          path: '/usr/share/filebeat/module/custom_apache2/access'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_apache2/access/config/access.yml'
+          path: '/usr/share/filebeat/module/custom_apache2/access/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_apache2/access/ingest/default.json'
+          path: '/usr/share/filebeat/module/custom_apache2/access/ingest/'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_apache2/error/manifest.yml'
+          path: '/usr/share/filebeat/module/custom_apache2/error'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_apache2/error/config/error.yml'
+          path: '/usr/share/filebeat/module/custom_apache2/error/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_apache2/error/ingest/pipeline.json'
+          path: '/usr/share/filebeat/module/custom_apache2/error/ingest/'
           owner: 'root'
           group: 'root'
           mode: '0644'
