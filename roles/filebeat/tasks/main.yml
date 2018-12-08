@@ -34,6 +34,17 @@
     register: is_filebeat_setting
     notify: filebeat restart
 
+  - name: filebeat fields setting
+    copy:
+      src: fields.yml
+      dest: /etc/filebeat/fields.yml
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_filebeat_fields_setting
+    notify: filebeat restart
+
   - name: filebeat auditd setting
     copy:
       src: auditd.yml
@@ -110,6 +121,7 @@
     with_flattened:
       - "{{ is_elastic_repo_setting|default() }}"
       - "{{ is_filebeat_setting|default() }}"
+      - "{{ is_filebeat_fields_setting|default() }}"
       - "{{ is_filebeat_auditd_setting|default() }}"
       - "{{ is_filebeat_kibana_setting|default() }}"
     loop_control:

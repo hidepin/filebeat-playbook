@@ -62,6 +62,9 @@ filebeat.inputs:
   # Note: After is the equivalent to previous and before is the equivalent to to next in Logstash
   #multiline.match: after
 
+#========================= Filebeat global options ============================
+
+filebeat.overwrite_pipelines: true
 
 #============================= Filebeat modules ===============================
 
@@ -77,6 +80,8 @@ filebeat.config.modules:
 
 #==================== Elasticsearch template setting ==========================
 
+setup.template.fields: "${path.config}/fields.yml"
+setup.template.overwrite: true
 setup.template.settings:
   index.number_of_shards: 1
   index.number_of_replicas: 0

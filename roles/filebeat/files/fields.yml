@@ -2141,6 +2141,84 @@
               type: text
               description: >
                 The logged message.
+            - name: process_id
+              type: long
+              description: >
+                  Process id
+            - name: connection_from
+              type: keyword
+              description: >
+                client host and port.
+            - name: session_id
+              type: keyword
+              description: >
+                session id
+            - name: session_line_num
+              type: long
+              description: >
+                session line number
+            - name: command_tag
+              type: keyword
+              description: >
+                command tag
+            - name: session_start_time_timestamp
+              description: >
+                The session_start_time timestamp from the log line.
+            - name: session_start_time_timezone
+              description: >
+                The session_start_time timezone of timestamp.
+            - name: virtual_transaction_id
+              type: keyword
+              description: >
+                virtual transaction id
+            - name: transaction_id
+              type: long
+              description: >
+                transaction id
+            - name: sql_state_code
+              type: keyword
+              description: >
+                sql state code
+            - name: message
+              type: text
+              description: >
+                message
+            - name: detail
+              type: text
+              description: >
+                detail
+            - name: hint
+              type: text
+              description: >
+                hint
+            - name: internal_query
+              type: text
+              description: >
+                internal query
+            - name: internal_query_pos
+              type: long
+              description: >
+                internal query pos
+            - name: context
+              type: keyword
+              description: >
+                context
+            - name: query
+              type: text
+              description: >
+                query
+            - name: query_pos
+              type: long
+              description: >
+                query pos
+            - name: location
+              type: text
+              description: >
+                location
+            - name: application_name
+              type: keyword
+              description: >
+                application name
 - key: redis
   title: "Redis"
   description: >
