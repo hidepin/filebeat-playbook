@@ -56,6 +56,13 @@
     register: is_filebeat_auditd_setting
     notify: filebeat restart
 
+  - name: filebeat delete auditd disable setting
+    file:
+      path: /etc/filebeat/modules.d/auditd.yml.disabled
+      state: absent
+      backup: yes
+    notify: filebeat restart
+
   - name: filebeat kibana setting
     copy:
       src: kibana.yml
@@ -65,6 +72,13 @@
       mode: 0644
       backup: yes
     register: is_filebeat_kibana_setting
+    notify: filebeat restart
+
+  - name: filebeat delete kibana disable setting
+    file:
+      path: /etc/filebeat/modules.d/kibana.yml.disabled
+      state: absent
+      backup: yes
     notify: filebeat restart
 
   - name: filebeat custom postgresql modules setting
