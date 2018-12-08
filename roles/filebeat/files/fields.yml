@@ -2227,6 +2227,14 @@
               type: float
               description: >
                 Elapsed of a automatic analyze.
+            - name: automatic_vacuum_table
+              type: keyword
+              description: >
+                automatic vacuum of table
+            - name: automatic_vacuum_elapsed
+              type: float
+              description: >
+                Elapsed of a automatic vacuum.
 - key: redis
   title: "Redis"
   description: >
