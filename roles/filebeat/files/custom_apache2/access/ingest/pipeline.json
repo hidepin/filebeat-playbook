@@ -1,0 +1,59 @@
+{
+  "description": "Pipeline for parsing Apache2 access logs. Requires the geoip and user_agent plugins.",
+  "processors": [{
+    "grok": {
+      "field": "message",
+      "patterns":[
+        "%{IPORHOST:apache2.access.remote_ip} - %{DATA:apache2.access.user_name} \\[%{HTTPDATE:apache2.access.time}\\](?: %{NOTSPACE:apache2.access.ssl_protocol})?(?: %{NOTSPACE:apache2.access.ssl_cipher})? \"%{WORD:apache2.access.method} (?<apache2.access.url>[^? ]*)(?:\\?(?:%{DATA:apache2.access.urlparam})?)? HTTP/%{NUMBER:apache2.access.http_version}\" %{NUMBER:apache2.access.response_code} (?:%{NUMBER:apache2.access.body_sent.bytes}|-)(?: (?<apache2.access.referrer>[^? ]*)(?:\\?(?:%{DATA:apache2.access.referrerparam})?)?)?(?: \"%{DATA:apache2.access.agent}\")?(?: \\(%{DATA:apache2.access.jsessionid}\\)->\\((?<apache2.access.balancer_session_route>[^,]*),(?<apache2.access.balancer_worker_route>[-0-9a-zA-Z]*)\\))?(?: %{NUMBER:apache2.access.duration})?",
+        "%{IPORHOST:apache2.access.remote_ip} - %{DATA:apache2.access.user_name} \\[%{HTTPDATE:apache2.access.time}\\] \"-\" %{NUMBER:apache2.access.response_code} -"
+        ],
+      "ignore_missing": true
+    }
+  }, {
+    "grok": {
+      "field": "apache2.access.jsessionid",
+      "patterns":[
+        "[^.]+\\.(?<apache2.access.jvmroute>.*)"
+        ],
+      "ignore_missing": true
+    }
+  }, {
+    "rename": {
+      "field": "@timestamp",
+      "target_field": "read_timestamp"
+    }
+  }, {
+    "date": {
+      "field": "apache2.access.time",
+      "target_field": "@timestamp",
+      "formats": ["dd/MMM/YYYY:H:m:s Z"]
+    }
+  }, {
+    "remove": {
+      "field": "apache2.access.time"
+    }
+  }, {
+    "user_agent": {
+      "field": "apache2.access.agent",
+      "target_field": "apache2.access.user_agent",
+      "ignore_failure": true
+    }
+  }, {
+    "rename": {
+      "field": "apache2.access.agent",
+      "target_field": "apache2.access.user_agent.original",
+      "ignore_failure": true
+    }
+  }, {
+    "geoip": {
+      "field": "apache2.access.remote_ip",
+      "target_field": "apache2.access.geoip"
+    }
+  }],
+  "on_failure" : [{
+    "set" : {
+      "field" : "error.message",
+      "value" : "{{ _ingest.on_failure_message }}"
+    }
+  }]
+}
