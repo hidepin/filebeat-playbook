@@ -9,10 +9,6 @@
         ],
       "ignore_missing": true
     }
-  },{
-    "remove":{
-      "field": "message"
-    }
   }, {
     "rename": {
       "field": "@timestamp",
