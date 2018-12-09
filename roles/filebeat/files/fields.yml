@@ -627,6 +627,10 @@
               description: >
                 Contains the un-parsed user agent string. Only present if the user
                 agent Elasticsearch plugin is not available or not used.
+            - name: status_code
+              type: keyword
+              description: >
+                APR/OS error status code and string
             - name: user_agent
               type: group
               description: >
