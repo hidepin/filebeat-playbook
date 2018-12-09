@@ -605,6 +605,10 @@
               type: keyword
               description: >
                 The request HTTP URL.
+            - name: urlparam
+              type: text
+              description: >
+                urlparam
             - name: http_version
               type: keyword
               description: >
@@ -622,15 +626,35 @@
               type: keyword
               description: >
                 The HTTP referrer.
+            - name: referrerparam
+              type: text
+              description: >
+                The HTTP referrer. param
             - name: agent
               type: text
               description: >
                 Contains the un-parsed user agent string. Only present if the user
                 agent Elasticsearch plugin is not available or not used.
-            - name: status_code
+            - name: jsessionid
               type: keyword
               description: >
-                APR/OS error status code and string
+                JSESSIONID
+            - name: jvmroute
+              type: keyword
+              description: >
+                jvmroute
+            - name: balancer_session_route
+              type: keyword
+              description: >
+                balancer_session_route
+            - name: balancer_worker_route
+              type: keyword
+              description: >
+                balancer_session_route
+            - name: duration
+              type: long
+              description: >
+                duration
             - name: user_agent
               type: group
               description: >
@@ -739,6 +763,10 @@
               type: keyword
               description: >
                 The module producing the logged message.
+            - name: status_code
+              type: keyword
+              description: >
+                APR/OS error status code and string
 - key: auditd
   title: "Auditd"
   description: >
