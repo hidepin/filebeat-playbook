@@ -655,6 +655,14 @@
               type: long
               description: >
                 duration
+            - name: ssl_protocol
+              type: keyword
+              description: >
+                ssl_protocol
+            - name: ssl_cipher
+              type: keyword
+              description: >
+                ssl_cipher
             - name: user_agent
               type: group
               description: >
