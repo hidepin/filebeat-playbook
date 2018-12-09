@@ -26,6 +26,7 @@
         "field": "apache2.error.timestamp",
         "target_field": "@timestamp",
         "formats": ["EEE MMM dd H:m:s YYYY", "EEE MMM dd H:m:s.SSSSSS YYYY"],
+        "timezone": "JST",
         "ignore_failure": true
       }
     },
