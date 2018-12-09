@@ -75,6 +75,7 @@
     with_items:
       - /etc/filebeat/modules.d/auditd.yml.disabled
       - /etc/filebeat/modules.d/kibana.yml.disabled
+      - /etc/filebeat/modules.d/apache2.yml.disabled
 
   - name: filebeat custom postgresql modules setting
     include_tasks: module.yml
