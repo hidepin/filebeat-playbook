@@ -2247,6 +2247,12 @@
               type: text
               description: >
                 query
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    query (keyword)
             - name: query_pos
               type: long
               description: >
