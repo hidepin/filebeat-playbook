@@ -17,7 +17,7 @@
     "grok": {
       "field": "apache2.access.jsessionid",
       "patterns":[
-        "[^.]+\\.(?<apache2.access.jvmroute>.*)"
+        "([^.]+\\.(?<apache2.access.jvmroute>.*)|-)"
         ],
       "ignore_missing": true
     }
