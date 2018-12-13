@@ -22,6 +22,14 @@
       "ignore_missing": true
     }
   }, {
+    "grok": {
+      "field": "apache2.access.url",
+      "patterns":[
+        "(.*/api/v[0-9]+/|/[^/]+/)(?<apache2.access.urlresource>[^/]+).*"
+        ],
+      "ignore_missing": true
+    }
+  }, {
     "rename": {
       "field": "@timestamp",
       "target_field": "read_timestamp"
