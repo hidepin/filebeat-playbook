@@ -605,6 +605,10 @@
               type: keyword
               description: >
                 The request HTTP URL.
+            - name: urlresource
+              type: keyword
+              description: >
+                The request HTTP URL resource.
             - name: urlparam
               type: text
               description: >
