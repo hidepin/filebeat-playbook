@@ -14,11 +14,6 @@
         "ignore_missing": true
 			}
     },
-		{
-      "remove": {
-        "field": "message"
-      }
-    },
     {
       "date": {
         "field": "system.syslog.timestamp",
