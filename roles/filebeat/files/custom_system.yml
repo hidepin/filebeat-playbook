@@ -9,6 +9,7 @@
 
     # Convert the timestamp to UTC. Requires Elasticsearch >= 6.1.
     #var.convert_timezone: false
+    var.convert_timezone: true
 
   # Authorization logs
   auth:
@@ -20,3 +21,4 @@
 
     # Convert the timestamp to UTC. Requires Elasticsearch >= 6.1.
     #var.convert_timezone: false
+    var.convert_timezone: false
