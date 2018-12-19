@@ -2363,6 +2363,14 @@
             - name: hostname
               description: >
                 The hostname as read from the auth message.
+            - name: facility
+              type: keyword
+              description: >
+                The facility as read from the auth message.
+            - name: priority
+              type: keyword
+              description: >
+                The priority as read from the auth message.
             - name: program
               description: >
                 The process name as read from the auth message.
