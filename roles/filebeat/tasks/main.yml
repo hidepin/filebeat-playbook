@@ -73,11 +73,8 @@
       state: absent
     notify: filebeat restart
     with_items:
-      - /etc/filebeat/modules.d/system.yml.disabled
       - /etc/filebeat/modules.d/auditd.yml.disabled
       - /etc/filebeat/modules.d/kibana.yml.disabled
-      - /etc/filebeat/modules.d/apache2.yml.disabled
-      - /etc/filebeat/modules.d/postgresql.yml.disabled
 
   - name: filebeat custom system modules setting
     include_tasks: module.yml
