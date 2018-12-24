@@ -1,0 +1,3 @@
+dashboards:
+- id: Filebeat-custom_gclog-log-Dashboard
+  file: Filebeat-custom_gclog-log.json
