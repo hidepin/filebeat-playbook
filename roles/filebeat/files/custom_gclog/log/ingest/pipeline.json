@@ -1,0 +1,36 @@
+{
+  "description": "Pipeline for parsing custom_gclog log logs",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "ignore_missing": true,
+        "patterns":[
+          "%{TIMESTAMP_ISO8601:gclog.log.timestamp}: %{NUMBER:gclog.log.jvmuptime}: \\[(?<gclog.log.type>[^(]*) \\((?<gclog.log.reason>[^)]*)\\) %{TIMESTAMP_ISO8601}: %{NUMBER}:(?: \\[%{WORD} \\((?<gclog.log.cms_failed_reason>[^)]*)\\): %{NUMBER}K->%{NUMBER}K\\(%{NUMBER}K\\), %{NUMBER} secs\\]%{TIMESTAMP_ISO8601}: %{NUMBER}:)? \\[(?<gclog.log.pattern>[A-Za-z]*)(?:%{TIMESTAMP_ISO8601}: %{NUMBER}:[^(]*\\((?<gclog.log.cms_failed_reason>[^)]*)\\))?: %{NUMBER:gclog.log.young_used_before_gc}K->%{NUMBER:gclog.log.young_used_after_gc}K\\(%{NUMBER:gclog.log.young_size}K\\), %{NUMBER} secs\\] %{NUMBER:gclog.log.heap_used_before_gc}K->%{NUMBER:gclog.log.heap_used_after_gc}K\\(%{NUMBER:gclog.log.heap_size}K\\), (?:\\[Metaspace: %{NUMBER:gclog.log.metaspace_used_before_gc}K->%{NUMBER:gclog.log.metaspace_used_after_gc}K\\(%{NUMBER:gclog.log.metaspace_size}K\\)\\], )?%{NUMBER} secs\\] \\[Times: user=%{NUMBER:gclog.log.usertime} sys=%{NUMBER:gclog.log.systime}, real=%{NUMBER:gclog.log.realtime} secs\\].*",
+          "%{TIMESTAMP_ISO8601:gclog.log.timestamp}:.*"
+        ]
+      }
+    }, {
+      "rename": {
+        "field": "@timestamp",
+        "target_field": "read_timestamp"
+      }
+    }, {
+      "date": {
+        "field": "gclog.log.timestamp",
+        "target_field": "@timestamp",
+        "formats": ["YYYY-MM-dd'T'HH:mm:ss.SSSZ"]
+      }
+    }, {
+      "remove": {
+        "field": "gclog.log.timestamp"
+      }
+    }
+  ],
+  "on_failure" : [{
+    "set" : {
+      "field" : "error.message",
+      "value" : "{{ _ingest.on_failure_message }}"
+    }
+  }]
+}

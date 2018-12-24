@@ -3400,3 +3400,94 @@
             - name: flags
               type: group
               fields:
+- key: gclog
+  title: "gclog"
+  description: >
+    Module for parsing the gclog log files.
+  short_config: true
+  fields:
+    - name: gclog
+      type: group
+      description: >
+          Fields from gc logs.
+      fields:
+        - name: log
+          type: group
+          description: >
+            Fields from the gclog log files.
+          fields:
+            - name: timestamp
+              description: >
+                The timestamp from the log line.
+            - name: jvmuptime
+              type: float
+              description: >
+                jvmuptime
+            - name: type
+              type: keyword
+              description: >
+                  type
+            - name: reason
+              type: keyword
+              description:
+                reason
+            - name: cms_failed_reason
+              type: keyword
+              description:
+                cms_failed_reason
+            - name: pattern
+              type: keyword
+              description:
+                pattern
+            - name: young_used_before_gc
+              type: long
+              description:
+                young_used_before_gc
+            - name: young_used_after_gc
+              type: long
+              description:
+                young_used_after_gc
+            - name: young_size
+              type: long
+              description:
+                young_size
+            - name: heap_used_before_gc
+              type: long
+              description:
+                heap_used_before_gc
+            - name: heap_used_before_gc
+              type: long
+              description:
+                heap_used_before_gc
+            - name: heap_used_after_gc
+              type: long
+              description:
+                heap_used_after_gc
+            - name: heap_size
+              type: long
+              description:
+                heap_size
+            - name: metaspace_used_before_gc
+              type: long
+              description:
+                metaspace_used_before_gc
+            - name: metaspace_used_after_gc
+              type: long
+              description:
+                metaspace_used_after_gc
+            - name: metaspace_size
+              type: long
+              description:
+                metaspace_size
+            - name: usertime
+              type: float
+              description: >
+                usertime
+            - name: systime
+              type: float
+              description: >
+                systime
+            - name: realtime
+              type: float
+              description: >
+                realtime
