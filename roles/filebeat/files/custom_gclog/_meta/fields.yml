@@ -1,9 +1,0 @@
-- key: custom_gclog
-  title: "custom_gclog"
-  description: >
-    custom_gclog Module
-  fields:
-    - name: custom_gclog
-      type: group
-      description: >
-      fields:
