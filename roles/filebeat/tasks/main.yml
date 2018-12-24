@@ -274,6 +274,54 @@
           group: 'root'
           mode: '0644'
 
+  - name: filebeat custom gclog modules setting
+    include_tasks: module.yml
+    vars:
+      - module:
+        - src: 'custom_gclog.yml'
+          path: '/etc/filebeat/modules.d'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+      - directory:
+        - path: '/usr/share/filebeat/module/custom_gclog'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_gclog/log'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_gclog/log/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+        - path: '/usr/share/filebeat/module/custom_gclog/log/ingest'
+          owner: 'root'
+          group: 'root'
+          mode: '0755'
+      - file:
+        - src: 'custom_gclog/module.yml'
+          path: '/usr/share/filebeat/module/custom_gclog'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_gclog/log/manifest.yml'
+          path: '/usr/share/filebeat/module/custom_gclog/log'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_gclog/log/config/log.yml'
+          path: '/usr/share/filebeat/module/custom_gclog/log/config'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+        - src: 'custom_gclog/log/ingest/pipeline.json'
+          path: '/usr/share/filebeat/module/custom_gclog/log/ingest/'
+          owner: 'root'
+          group: 'root'
+          mode: '0644'
+
   always:
   - name: filebeat common backup settings
     include_tasks: backup.yml
