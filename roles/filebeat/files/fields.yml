@@ -605,6 +605,10 @@
               type: keyword
               description: >
                 The request HTTP URL.
+            - name: contextpath
+              type: keyword
+              description: >
+                The request HTTP URL contextpath.
             - name: urlresource
               type: keyword
               description: >

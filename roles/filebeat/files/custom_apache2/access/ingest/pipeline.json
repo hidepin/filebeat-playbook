@@ -25,7 +25,8 @@
     "grok": {
       "field": "apache2.access.url",
       "patterns":[
-        "/[^/]+/(?<apache2.access.urlresource>(api/v[0-9]+/)?[^/]+).*"
+        "/favicon.ico$",
+        "/(?<apache2.access.contextpath>[^/]+)(?:/(?<apache2.access.urlresource>(api/v[0-9]+/)?[^/]+).*)?"
         ],
       "ignore_missing": true
     }
