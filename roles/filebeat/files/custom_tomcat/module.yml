@@ -1,0 +1,3 @@
+dashboards:
+- id: Filebeat-custom_tomcat-log-Dashboard
+  file: Filebeat-custom_tomcat-log.json
