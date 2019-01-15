@@ -2376,6 +2376,7 @@
               description: >
                 The priority as read from the auth message.
             - name: program
+              type: keyword
               description: >
                 The process name as read from the auth message.
             - name: pid
@@ -2527,11 +2528,48 @@
               description: >
                 The priority as read from the syslog message.
             - name: program
+              type: keyword
               description: >
                 The process name as read from the syslog message.
             - name: pid
+              type: long
               description: >
                 The PID of the process that sent the syslog message.
+            - name: message
+              type: text
+              description: >
+                The message in the log line.
+        - name: mail
+          type: group
+          description: >
+            Contains fields from the mail system logs.
+          fields:
+            - name: timestamp
+              description: >
+                The timestamp as read from the mail message.
+            - name: hostname
+              description: >
+                The hostname as read from the mail messagje.
+            - name: facility
+              type: keyword
+              description: >
+                The facility as read from the mail message.
+            - name: priority
+              type: keyword
+              description: >
+                The priority as read from the mail message.
+            - name: program
+              type: keyword
+              description: >
+                The process name as read from the mail message.
+            - name: subprogram
+              type: keyword
+              description: >
+                The process name as read from the mail message.
+            - name: pid
+              type: long
+              description: >
+                The PID of the process that sent the mail message.
             - name: message
               type: text
               description: >
