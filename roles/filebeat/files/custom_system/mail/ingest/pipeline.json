@@ -15,6 +15,20 @@
             }
         },
         {
+            "grok": {
+                "field": "system.mail.message",
+                "patterns": [
+                    "%{QUEUEID:system.mail.queue_id}: .*",
+                    "connect from %{HOSTNAME:system.mail.connect_hostname}\\[%{IP:system.mail.connect_ip}\\]",
+                    "disconnect from %{HOSTNAME:system.mail.disconnect_hostname}\\[%{IP:system.mail.disconnect_ip}\\]"
+                ],
+                "pattern_definitions" : {
+                    "QUEUEID" : "[0-9A-Z]{11}"
+                },
+                "ignore_missing": true
+            }
+        },
+        {
             "date": {
                 "field": "system.mail.timestamp",
                 "target_field": "@timestamp",

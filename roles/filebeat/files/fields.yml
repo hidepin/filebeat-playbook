@@ -2580,6 +2580,26 @@
               type: text
               description: >
                 The message in the log line.
+            - name: queue_id
+              type: keyword
+              description: >
+                The queue id in the log line.
+            - name: connect_hostname
+              type: keyword
+              description: >
+                The connect hostname in the log line.
+            - name: connect_ip
+              type: keyword
+              description: >
+                The connect ip in the log line.
+            - name: disconnect_hostname
+              type: keyword
+              description: >
+                The disconnect hostname in the log line.
+            - name: disconnect_ip
+              type: keyword
+              description: >
+                The disconnect ip in the log line.
 - key: traefik
   title: "Traefik"
   description: >
