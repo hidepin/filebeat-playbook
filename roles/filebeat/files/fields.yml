@@ -828,9 +828,15 @@
               description: >
                 The user account name associated with the event.
             - name: pid
+              type: long
               description: >
                 The ID of the process.
             - name: ppid
+              type: long
+              description: >
+                The ID of the process.
+            - name: spid
+              type: long
               description: >
                 The ID of the process.
             - name: items
