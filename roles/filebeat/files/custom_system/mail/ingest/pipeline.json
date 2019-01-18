@@ -5,7 +5,7 @@
             "grok": {
                 "field": "message",
                 "patterns": [
-                    "%{SYSLOGTIMESTAMP:system.mail.timestamp} %{SYSLOGHOST:system.mail.hostname} (?:<%{WORD:system.mail.facility}.%{WORD:system.mail.priority}> )?%{WORD:system.mail.program}(?:\/%{WORD:system.mail.subprogram})?(?:\\[%{POSINT:system.mail.pid}\\])?:%{GREEDYMULTILINE:system.mail.message}",
+                    "%{SYSLOGTIMESTAMP:system.mail.timestamp} %{SYSLOGHOST:system.mail.hostname} (?:<%{WORD:system.mail.facility}.%{WORD:system.mail.priority}> )?%{WORD:system.mail.program}(?:\/%{DATA:system.mail.subprogram})?(?:\\[%{POSINT:system.mail.pid}\\])?:%{GREEDYMULTILINE:system.mail.message}",
                     "%{SYSLOGTIMESTAMP:system.mail.timestamp} %{GREEDYMULTILINE:system.mail.message}"
                 ],
                 "pattern_definitions" : {
