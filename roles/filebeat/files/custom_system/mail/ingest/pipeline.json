@@ -1,0 +1,55 @@
+{
+    "description": "Pipeline for parsing mail messages.",
+    "processors": [
+        {
+            "grok": {
+                "field": "message",
+                "patterns": [
+                    "%{SYSLOGTIMESTAMP:system.mail.timestamp} %{SYSLOGHOST:system.mail.hostname} (?:<%{WORD:system.mail.facility}.%{WORD:system.mail.priority}> )?%{WORD:system.mail.program}(?:\/%{DATA:system.mail.subprogram})?(?:\\[%{POSINT:system.mail.pid}\\])?:%{GREEDYMULTILINE:system.mail.message}",
+                    "%{SYSLOGTIMESTAMP:system.mail.timestamp} %{GREEDYMULTILINE:system.mail.message}"
+                ],
+                "pattern_definitions" : {
+                    "GREEDYMULTILINE" : "(.|\n)*"
+                },
+                "ignore_missing": true
+            }
+        },
+        {
+            "grok": {
+                "field": "system.mail.message",
+                "patterns": [
+                    "%{QUEUE_ID:system.mail.queue_id}: message-id=<(?:%{NOT_ANGLE_BRACKET:system.mail.message_id})?>.*",
+                    "%{QUEUE_ID:system.mail.queue_id}: from=<(?:%{NOT_ANGLE_BRACKET:system.mail.from})?>.*",
+                    "%{QUEUE_ID:system.mail.queue_id}: to=<(?:%{NOT_ANGLE_BRACKET:system.mail.to})?>.*",
+                    "%{QUEUE_ID:system.mail.queue_id}: client=%{HOSTNAME:system.mail.client_hostname}\\[%{IP:system.mail.client_ip}\\].*",
+                    "%{QUEUE_ID:system.mail.queue_id}: .*",
+                    "connect from %{HOSTNAME:system.mail.connect_hostname}\\[%{IP:system.mail.connect_ip}\\]",
+                    "disconnect from %{HOSTNAME:system.mail.disconnect_hostname}\\[%{IP:system.mail.disconnect_ip}\\]"
+                ],
+                "pattern_definitions" : {
+                    "QUEUE_ID" : "[0-9A-Z]{11}",
+                    "NOT_ANGLE_BRACKET": "[^>]+"
+                },
+                "ignore_missing": true
+            }
+        },
+        {
+            "date": {
+                "field": "system.mail.timestamp",
+                "target_field": "@timestamp",
+                "formats": [
+                    "MMM  d HH:mm:ss",
+                    "MMM dd HH:mm:ss"
+                ],
+                {< if .convert_timezone >}"timezone": "{{ beat.timezone }}",{< end >}
+                "ignore_failure": true
+            }
+        }
+    ],
+    "on_failure" : [{
+        "set" : {
+            "field" : "error.message",
+            "value" : "{{ _ingest.on_failure_message }}"
+        }
+    }]
+}
