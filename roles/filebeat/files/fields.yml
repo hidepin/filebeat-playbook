@@ -2600,6 +2600,26 @@
               type: keyword
               description: >
                 The disconnect ip in the log line.
+            - name: client_hostname
+              type: keyword
+              description: >
+                The client hostname in the log line.
+            - name: client_ip
+              type: keyword
+              description: >
+                The client ip in the log line.
+            - name: message_id
+              type: keyword
+              description: >
+                The message id in the log line.
+            - name: from
+              type: keyword
+              description: >
+                The from in the log line.
+            - name: to
+              type: keyword
+              description: >
+                The to in the log line.
 - key: traefik
   title: "Traefik"
   description: >

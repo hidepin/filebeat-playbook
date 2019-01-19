@@ -18,12 +18,17 @@
             "grok": {
                 "field": "system.mail.message",
                 "patterns": [
-                    "%{QUEUEID:system.mail.queue_id}: .*",
+                    "%{QUEUE_ID:system.mail.queue_id}: message-id=<(?:%{NOT_ANGLE_BRACKET:system.mail.message_id})?>.*",
+                    "%{QUEUE_ID:system.mail.queue_id}: from=<(?:%{NOT_ANGLE_BRACKET:system.mail.from})?>.*",
+                    "%{QUEUE_ID:system.mail.queue_id}: to=<(?:%{NOT_ANGLE_BRACKET:system.mail.to})?>.*",
+                    "%{QUEUE_ID:system.mail.queue_id}: client=%{HOSTNAME:system.mail.client_hostname}\\[%{IP:system.mail.client_ip}\\].*",
+                    "%{QUEUE_ID:system.mail.queue_id}: .*",
                     "connect from %{HOSTNAME:system.mail.connect_hostname}\\[%{IP:system.mail.connect_ip}\\]",
                     "disconnect from %{HOSTNAME:system.mail.disconnect_hostname}\\[%{IP:system.mail.disconnect_ip}\\]"
                 ],
                 "pattern_definitions" : {
-                    "QUEUEID" : "[0-9A-Z]{11}"
+                    "QUEUE_ID" : "[0-9A-Z]{11}",
+                    "NOT_ANGLE_BRACKET": "[^>]+"
                 },
                 "ignore_missing": true
             }
