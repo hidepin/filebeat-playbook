@@ -1,0 +1,51 @@
+{
+  "description": "Pipeline for parsing custom_tomcat logs.",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "ignore_missing": true,
+        "patterns":[
+          "%{TOMCATDATETIME:tomcat.log.time} %{NOTSPACE:tomcat.log.priority} \\[%{NOT_BRACKET:tomcat.log.thread}\\] %{NOTSPACE:tomcat.log.class} %{GREEDYDATA:tomcat.log.message}",
+          "%{NOTSPACE:tomcat.log.agent} (?:%{NOT_COLON:tomcat.log.priority}: )?%{GREEDYDATA:tomcat.log.message}"
+        ],
+        "pattern_definitions": {
+            "TOMCATDATETIME": "%{MONTHNUM2}-%{MONTH}-%{YEAR} %{TIME}",
+            "GREEDYDATA": "(.|\n|\t)*",
+            "NOT_BRACKET": "[^\\] ]+",
+            "NOT_COLON": "[^: ]+"
+        }
+      }
+    }, {
+      "rename": {
+        "field": "@timestamp",
+        "target_field": "read_timestamp"
+      }
+    }, {
+      "date": {
+        "field": "read_timestamp",
+        "target_field": "@timestamp",
+        "formats": ["yyyy-MM-dd'T'HH:mm:ss.SSSZ"],
+        "ignore_failure": true
+      }
+    }, {
+      "date": {
+        "field": "tomcat.log.time",
+        "target_field": "@timestamp",
+        "formats": ["dd-MMM-yyyy HH:mm:ss.SSS"],
+        "timezone": "JST",
+        "ignore_failure": true
+      }
+    }, {
+      "remove": {
+        "field": "tomcat.log.time",
+        "ignore_failure": true
+      }
+    }],
+    "on_failure" : [{
+      "set" : {
+        "field" : "error.message",
+        "value" : "{{ _ingest.on_failure_message }}"
+      }
+    }]
+}

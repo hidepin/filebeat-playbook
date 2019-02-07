@@ -3581,6 +3581,31 @@
                   type: keyword
                   description: >
                     Region ISO code.
+        - name: log
+          type: group
+          description: >
+            Contains fields for the Tomcat HTTPD logs.
+          fields:
+            - name: priority
+              type: keyword
+              description: >
+                Tomcat log priority
+            - name: thread
+              type: keyword
+              description: >
+                Tomcat thread
+            - name: class
+              type: text
+              description: >
+                Tomcat class
+            - name: message
+              type: text
+              description: >
+                Tomcat log message
+            - name: agent
+              type: keyword
+              description: >
+                Tomcat agent
 
 - key: gclog
   title: "gclog"
