@@ -1,0 +1,3 @@
+dashboards:
+- id: Filebeat-hulft-dashboard
+  file: Filebeat-hulft.json

@@ -3698,3 +3698,138 @@
               type: float
               description: >
                 realtime
+
+- key: hulft
+  title: "hulft"
+  description: >
+    Module for parsing the hulft log files.
+  short_config: true
+  fields:
+    - name: hulft
+      type: group
+      description: >
+          Fields from hulft logs.
+      fields:
+        - name: log
+          type: group
+          description: >
+            Fields from the hulft log files.
+          fields:
+            - name: timestamp
+              description: >
+                The timestamp from the log line.
+            - name: syslogtimestamp
+              type: date
+              format: "yyyy-MM-ddTHH:mm:ss.S"
+              description: >
+                The timestamp from the log line.
+            - name: sysloghostname
+              type: keyword
+              description: >
+                sysloghostname
+            - name: systemprogram
+              type: keyword
+              description: >
+                systemprogram
+            - name: id
+              type: keyword
+              description: >
+                  id
+            - name: class
+              type: keyword
+              description: >
+                  class
+            - name: hulcharacter
+              type: keyword
+              description: >
+                  hulcharacter
+            - name: pname
+              type: keyword
+              description: >
+                  pname
+            - name: pid
+              type: long
+              description: >
+                  pname
+            - name: dtlcode
+              type: long
+              description: >
+                  dltcode
+            - name: myhost
+              type: keyword
+              description: >
+                  myhost
+            - name: uid
+              type: long
+              description: >
+                  uid
+            - name: msg
+              type: text
+              description: >
+                msg
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    msg (keyword)
+            - name: fileid
+              type: keyword
+              description: >
+                  fileid
+            - name: hostname
+              type: keyword
+              description: >
+                  hostname
+            - name: filename
+              type: keyword
+              description: >
+                  filename
+            - name: sts
+              type: long
+              description: >
+                  sts
+            - name: stsmsg
+              type: text
+              description: >
+                stsmsg
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    stsmsg (keyword)
+            - name: dsts
+              type: long
+              description: >
+                  dsts
+            - name: dstsmsg
+              type: text
+              description: >
+                dstsmsg
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    dstsmsg (keyword)
+            - name: request
+              type: text
+              description: >
+                request
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    request (keyword)
+            - name: reply
+              type: text
+              description: >
+                reply
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    reply (keyword)
