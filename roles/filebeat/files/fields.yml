@@ -3833,3 +3833,41 @@
                   ignore_above: 8192
                   description: >
                     reply (keyword)
+
+- key: pacemaker
+  title: "pacemaker"
+  description: >
+    Module for parsing the pacemaker log files.
+  short_config: true
+  fields:
+    - name: pacemaker
+      type: group
+      description: >
+          Fields from pacemaker logs.
+      fields:
+        - name: log
+          type: group
+          description: >
+            Fields from the pacemaker log files.
+          fields:
+            - name: syslogtimestamp
+              description: >
+                The timestamp from the log line.
+            - name: sysloghostname
+              type: keyword
+              description: >
+                sysloghostname
+            - name: priority
+              type: keyword
+              description: >
+                  priority
+            - name: message
+              type: text
+              description: >
+                message
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    message (keyword)

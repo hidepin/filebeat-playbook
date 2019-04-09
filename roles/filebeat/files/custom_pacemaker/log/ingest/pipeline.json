@@ -1,0 +1,30 @@
+{
+    "description": "Pipeline for parsing pacemaker messages.",
+    "processors": [
+        {
+            "grok": {
+                "field": "message",
+                "patterns": [
+                    "%{SYSLOGTIMESTAMP:pacemaker.log.syslogtimestamp} %{SYSLOGHOST:pacemaker.log.sysloghostname} +%{WORD:pacemaker.log.priority}: %{GREEDYDATA:pacemaker.log.message}"
+                ]
+            }
+        },
+        {
+            "date": {
+                "field": "pacemaker.log.syslogtimestamp",
+                "target_field": "@timestamp",
+                "formats": [
+                    "MMM dd HH:mm:ss"
+                ],
+                {< if .convert_timezone >}"timezone": "{{ beat.timezone }}",{< end >}
+                "ignore_failure": true
+            }
+        }
+    ],
+    "on_failure" : [{
+        "set" : {
+            "field" : "error.message",
+            "value" : "{{ _ingest.on_failure_message }}"
+        }
+    }]
+}

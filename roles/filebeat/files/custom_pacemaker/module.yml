@@ -1,0 +1,3 @@
+dashboards:
+- id: Filebeat-pacemaker-dashboard
+  file: Filebeat-pacemaker.json
