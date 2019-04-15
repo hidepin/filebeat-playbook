@@ -5,24 +5,23 @@
             "grok": {
                 "field": "message",
                 "patterns": [
-                    "%{TIMESTAMP_ISO8601_MILISECOND:hulft.log.syslogtimestamp} %{SYSLOGHOST:hulft.log.sysloghostname} +%{NOTSPACE:hulft.log.systemprogram}: +ID=%{NOTSPACE:hulft.log.id} +DATE=%{HULFT_TIMESTAMP:hulft.log.timestamp} +CLASS=%{NOTSPACE:hulft.log.class} +HULCHARACTER=(?:%{NOTSPACE:hulft.log.hulcharacter})? +PNAME=%{NOTSPACE:hulft.log.pname} +PID=%{POSINT:hulft.log.pid} +DTLCODE=%{NOTSPACE:hulft.log.dtlcode} +MYHOST=%{SYSLOGHOST:hulft.log.myhost} +UID=%{NUMBER:hulft.log.uid}((?: +REPLY=%{GREEDYDATA:hulft.log.reply})|(?: +REQUEST=%{GREEDYDATA:hulft.log.request})|(?: +MSG=%{GREEDYDATA:hulft.log.msg} FILEID=%{NOTSPACE:hulft.log.fileid}(?: HOSTNAME=%{SYSLOGHOST:hulft.log.hostname} FILENAME=%{GREEDYDATA:hulft.log.filename} STS=%{NUMBER:hulft.log.sts} STSMSG=%{NOTSPACE:hulft.log.stsmsg} DSTS=%{NUMBER:hulft.log.dsts} DSTSMSG=%{GREEDYDATA:hulft.log.dstsmsg}))?)"
+                    "%{SYSLOGTIMESTAMP:hulft.log.syslogtimestamp} %{SYSLOGHOST:hulft.log.sysloghostname} <%{WORD:hulft.log.facility}.%{WORD:hulft.log.priority}> +%{NOTSPACE:hulft.log.systemprogram}:ID=%{NOTSPACE:hulft.log.id} +DATE=%{HULFT_TIMESTAMP:hulft.log.timestamp} +CLASS=%{NOTSPACE:hulft.log.class} +HULCHARACTER=(?:%{NOTSPACE:hulft.log.hulcharacter})? +PNAME=%{NOTSPACE:hulft.log.pname} +PID=%{POSINT:hulft.log.pid} +DTLCODE=%{NOTSPACE:hulft.log.dtlcode} +MYHOST=%{SYSLOGHOST:hulft.log.myhost} +UID=%{NUMBER:hulft.log.uid}((?: +REPLY=%{GREEDYDATA:hulft.log.reply})|(?: +REQUEST=%{GREEDYDATA:hulft.log.request})|(?: +MSG=%{GREEDYDATA:hulft.log.msg} FILEID=%{NOTSPACE:hulft.log.fileid}(?: HOSTNAME=%{SYSLOGHOST:hulft.log.hostname} FILENAME=%{GREEDYDATA:hulft.log.filename} STS=%{NUMBER:hulft.log.sts} STSMSG=%{NOTSPACE:hulft.log.stsmsg} DSTS=%{NUMBER:hulft.log.dsts} DSTSMSG=%{GREEDYDATA:hulft.log.dstsmsg}))?)"
                 ],
                 "pattern_definitions" : {
                     "GREEDYMULTILINE" : "(.|\n)*",
-                    "TIMESTAMP_ISO8601_MILISECOND" : "%{YEAR}-%{MONTHNUM}-%{MONTHDAY}[T ]%{ISO8601_HOUR}:?%{MINUTE}(?::?%{SECOND})?(?::?%{INT})?%{ISO8601_TIMEZONE}?",
                     "HULFT_TIMESTAMP" : "%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{ISO8601_HOUR}:?%{MINUTE}(?::?%{SECOND})?"
                 }
             }
         },
         {
             "date": {
-                "field": "hulft.log.syslogtimestamp",
+                "field": "hulft.log.timestamp",
                 "target_field": "@timestamp",
                 "formats": [
-                    "ISO8601"
+                    "yyyy/MM/dd HH:mm:ss"
                 ],
                 {< if .convert_timezone >}"timezone": "{{ beat.timezone }}",{< end >}
-                "ignore_failure": true
+                "ignore_failure": false
             }
         }
     ],

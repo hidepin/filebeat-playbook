@@ -3719,8 +3719,6 @@
               description: >
                 The timestamp from the log line.
             - name: syslogtimestamp
-              type: date
-              format: "yyyy-MM-ddTHH:mm:ss.S"
               description: >
                 The timestamp from the log line.
             - name: sysloghostname
@@ -3731,6 +3729,14 @@
               type: keyword
               description: >
                 systemprogram
+            - name: facility
+              type: keyword
+              description: >
+                The facility as read from the hulft message.
+            - name: priority
+              type: keyword
+              description: >
+                The priority as read from the hulft message.
             - name: id
               type: keyword
               description: >
