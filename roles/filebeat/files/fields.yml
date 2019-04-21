@@ -3877,3 +3877,45 @@
                   ignore_above: 8192
                   description: >
                     message (keyword)
+
+- key: ultramonkey
+  title: "ultramonkey"
+  description: >
+    Module for parsing the ultramonkey log files.
+  short_config: true
+  fields:
+    - name: ultramonkey
+      type: group
+      description: >
+          Fields from ultramonkey logs.
+      fields:
+        - name: log
+          type: group
+          description: >
+            Fields from the ultramonkey log files.
+          fields:
+            - name: timestamp
+              description: >
+                The timestamp from the log line.
+            - name: program
+              type: keyword
+              description: >
+                program
+            - name: pid
+              type: long
+              description: >
+                  pname
+            - name: status
+              type: keyword
+              description: >
+                status
+            - name: message
+              type: text
+              description: >
+                message
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    message (keyword)

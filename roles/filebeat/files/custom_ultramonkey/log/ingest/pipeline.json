@@ -1,0 +1,43 @@
+{
+    "description": "Pipeline for parsing ultramonkey messages.",
+    "processors": [
+        {
+            "grok": {
+                "field": "message",
+                "patterns": [
+                    "\\[%{HTTPDERROR_DATE:ultramonkey.log.timestamp}\\|%{WORD:ultramonkey.log.program}\\|%{POSINT:ultramonkey.log.pid}\\] %{GREEDYDATA:ultramonkey.log.message}"
+                ]
+            }
+        },
+        {
+            "grok": {
+                "field": "ultramonkey.log.message",
+                "ignore_missing": true,
+                "patterns": [
+                    "(?<ultramonkey.log.status>Starting).*",
+                    "%{NOT_COLON:ultramonkey.log.status}.*"
+                ],
+                "pattern_definitions": {
+                    "NOT_COLON": "[^:]+"
+                }
+            }
+        },
+        {
+            "date": {
+                "field": "ultramonkey.log.timestamp",
+                "target_field": "@timestamp",
+                "formats": [
+                    "E MMM dd HH:mm:ss yyyy"
+                ],
+                {< if .convert_timezone >}"timezone": "{{ beat.timezone }}",{< end >}
+                "ignore_failure": true
+            }
+        }
+    ],
+    "on_failure" : [{
+        "set" : {
+            "field" : "error.message",
+            "value" : "{{ _ingest.on_failure_message }}"
+        }
+    }]
+}
