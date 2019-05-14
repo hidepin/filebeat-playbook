@@ -2191,10 +2191,6 @@
               example: "SELECT * FROM users;"
               description:
                 Query statement.
-            - name: message
-              type: text
-              description: >
-                The logged message.
             - name: process_id
               type: long
               description: >
@@ -2237,6 +2233,12 @@
               type: text
               description: >
                 message
+              multi_fields:
+                - name: raw
+                  type: keyword
+                  ignore_above: 8192
+                  description: >
+                    message (keyword)
             - name: detail
               type: text
               description: >
