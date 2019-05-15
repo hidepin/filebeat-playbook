@@ -5,7 +5,7 @@
             "grok": {
                 "field": "message",
                 "patterns": [
-                    "\\[%{HTTPDERROR_DATE:ultramonkey.log.timestamp}\\|%{WORD:ultramonkey.log.program}\\|%{POSINT:ultramonkey.log.pid}\\] %{GREEDYDATA:ultramonkey.log.message}"
+                    "\\[%{HTTPDERROR_DATE:ultramonkey.log.timestamp}\\|%{PROG:ultramonkey.log.program}\\|%{NUMBER:ultramonkey.log.pid}\\] %{GREEDYDATA:ultramonkey.log.message}"
                 ]
             }
         },
