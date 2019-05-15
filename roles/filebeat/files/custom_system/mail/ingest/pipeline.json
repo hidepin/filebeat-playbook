@@ -23,8 +23,13 @@
                     "%{QUEUE_ID:system.mail.queue_id}: to=<(?:%{NOT_ANGLE_BRACKET:system.mail.to})?>.*",
                     "%{QUEUE_ID:system.mail.queue_id}: client=%{HOSTNAME:system.mail.client_hostname}\\[%{IP:system.mail.client_ip}\\].*",
                     "%{QUEUE_ID:system.mail.queue_id}: .*",
+                    "starting the Postfix mail system",
+                    "daemon started -- version .*, configuration /etc/postfix",
+                    "stopping the Postfix mail system",
+                    "terminating on signal 15",
                     "connect from %{HOSTNAME:system.mail.connect_hostname}\\[%{IP:system.mail.connect_ip}\\]",
-                    "disconnect from %{HOSTNAME:system.mail.disconnect_hostname}\\[%{IP:system.mail.disconnect_ip}\\]"
+                    "disconnect from %{HOSTNAME:system.mail.disconnect_hostname}\\[%{IP:system.mail.disconnect_ip}\\]",
+                    "warning: inet_protocols: disabling IPv6 name\/address support: Address family not supported by protocol"
                 ],
                 "pattern_definitions" : {
                     "QUEUE_ID" : "[0-9A-Z]{11}",
